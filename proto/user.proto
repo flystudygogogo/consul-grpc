@@ -1,0 +1,23 @@
+syntax = "proto3";  //指定语法格式，注意 proto3 不再支持 proto2 的 required  和 optinal
+package proto;  //指定生成的 user.pb.go 的包名字；
+option go_package ="../proto";
+
+//service 定义开发调用 的服务， 即UserInfoService 微服务
+service UserInfoService {
+  //rpc 方式；定义GetUserInfo 远程调用
+  rpc GetUserInfo(UserRequest) returns (UserResponse){}
+}
+
+//定义客户端请求的数据格式
+//message 对应  生成的代码中的struct
+message UserRequest{
+  // [修饰符] 类型 字段名 = 标识符
+  string name = 1;
+}
+
+message UserResponse{
+  int32 id=1;
+  string name=2;
+  int32 age =3;
+  repeated string title = 4; // 可变数组，即 slice 类型
+}
